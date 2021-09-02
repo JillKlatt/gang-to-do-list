@@ -9,6 +9,12 @@ function App() {
 
 const [toDoList, setToDoList] = useState(data)
 
+const addTask = (input) => {
+  let updatedList = [...toDoList]
+  updatedList = [...updatedList, { id: toDoList.length + 1, task: input, complete: false}]
+  setToDoList(updatedList)
+}
+
 const handleToggle = (id) => {
   let mapped = toDoList.map(task => {
     return task.id == id ? { ...task, complete: !task.complete } : { ...task};
@@ -27,8 +33,8 @@ const handleFilter = () => {
   return (
     <div className="App">
       <Header />
-      <ToDoList toDoList={toDoList} handleFilter={handleFilter} handleToggle={handleToggle}/>
-      <Form />
+      <ToDoList toDoList={toDoList} handleFilter={handleFilter} handleToggle={handleToggle} />
+      <Form addTask={addTask}/>
     </div>
   );
 }

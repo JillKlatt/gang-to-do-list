@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-const Form = () => {
+const Form = ({addTask}) => {
 
     const [input, setInput] = useState("")
 
@@ -8,9 +8,16 @@ const Form = () => {
         setInput(e.currentTarget.value)
     }
 
+    function handleSubmit(e) {
+        e.preventDefault()
+        addTask(input)
+    }
+
     return (
         <div>
-            <input type='text' value={input} onChange={handleChange} placeholder={"New Task"}></input>
+        <form onSubmit={handleSubmit}>
+            <input type='text' value={input} onChange={handleChange} placeholder={"New Task"} ></input>
+        </form>
         </div>
     );
 }
