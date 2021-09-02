@@ -1,25 +1,34 @@
-import logo from './logo.svg';
 import './App.css';
+import Header from './components/Header'
+import data from './components/data/data.json'
+import { useState } from 'react'
+import ToDoList from './components/ToDoList'
+import Form from './components/Form'
 
 function App() {
 
+const [toDoList, setToDoList] = useState(data)
+
+const handleToggle = (id) => {
+  let mapped = toDoList.map(task => {
+    return task.id == id ? { ...task, complete: !task.complete } : { ...task};
+    });
+
+  setToDoList(mapped);
+  // Using Class Components: this.setState({toDoList: mapped})
+}
+
+const handleFilter = () => {
+  let filtered = toDoList.filter(task => {
+    return !task.complete})
+  setToDoList(filtered)
+}
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          HERE WE GO
-        </a>
-      </header>
+      <Header />
+      <ToDoList toDoList={toDoList} handleFilter={handleFilter} handleToggle={handleToggle}/>
+      <Form />
     </div>
   );
 }
