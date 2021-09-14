@@ -4,6 +4,10 @@ import data from './components/data/data.json'
 import { useState } from 'react'
 import ToDoList from './components/ToDoList'
 import Form from './components/Form'
+import Player from './components/Player'
+import Navbar from './components/Navbar'
+import {BrowserRouter as Router, Route} from 'react-router-dom'
+import Players from './components/Players';
 
 function App() {
 
@@ -11,7 +15,8 @@ const [toDoList, setToDoList] = useState(data)
 
 const addTask = (input) => {
   let updatedList = [...toDoList]
-  updatedList = [...updatedList, { id: toDoList.length + 1, task: input, complete: false}]
+  debugger
+  updatedList = [...updatedList, { id: toDoList.length + 1, task: input.task, complete: false}]
   setToDoList(updatedList)
 }
 
@@ -31,11 +36,27 @@ const handleFilter = () => {
 }
 
   return (
+    <Router>
     <div className="App">
+      <Navbar/>
       <Header />
-      <ToDoList toDoList={toDoList} handleFilter={handleFilter} handleToggle={handleToggle} />
-      <Form addTask={addTask}/>
+      <Route path="/home">
+        <ToDoList toDoList={toDoList} handleFilter={handleFilter} handleToggle={handleToggle} />
+      </Route>
+
+      <Route path="/todo">
+        <Form addTask={addTask}/>
+      </Route>
+      
+      <Route path="/players">
+        <Players/>
+      </Route>
+      
+      
+      
+      
     </div>
+    </Router>
   );
 }
 

@@ -2,21 +2,33 @@ import { useState } from 'react'
 
 const Form = ({addTask}) => {
 
-    const [input, setInput] = useState("")
+    const [input, setInput] = useState({
+        category: '', 
+        task: ''
+    })
 
     function handleChange(e) {
-        setInput(e.currentTarget.value)
+        const {name, value} = e.target
+
+        setInput(prevInput =>{
+            return {
+                ...prevInput,
+                [name]: value
+            }
+        })
     }
 
     function handleSubmit(e) {
         e.preventDefault()
         addTask(input)
     }
-
-    return (
+    return (        
         <div>
+            
         <form onSubmit={handleSubmit}>
-            <input type='text' value={input} onChange={handleChange} placeholder={"New Task"} ></input>
+            <input type='text' name='category' autoComplete="off" value={input.category} onChange={handleChange} placeholder={"Category"} ></input><br></br><br></br>
+            <input type='text' name='task' value={input.task} onChange={handleChange} placeholder={"New Task"} ></input><br></br><br></br>
+            <button className='btn btn-outline-success'>Add Task</button>
         </form>
         </div>
     );
