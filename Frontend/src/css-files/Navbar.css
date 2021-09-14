@@ -1,0 +1,10 @@
+.link{
+    color: black;
+    text-decoration: none
+}
+
+.link:hover{
+    color: red;
+    text-decoration-line: underline;
+    text-decoration-style: wavy;
+}
