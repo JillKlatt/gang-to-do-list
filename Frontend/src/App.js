@@ -30,8 +30,8 @@ const addTask = (input) => {
 }
 
 const handleToggle = (id) => {
- 
-  axios.put(`http://localhost:3001/tasks/${id}`, { _id: id })
+  const toggle = toDoList.find(x => x._id === id)
+  axios.put(`http://localhost:3001/tasks/${id}`, { complete: !toggle.complete })
   let mapped = toDoList.map(task => {
     return task._id == id ? { ...task, complete: !task.complete } : { ...task};
     });
